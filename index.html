@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carta para mi niña hermosa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <style>
+    /* Fondo animado romántico */
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Poppins', cursive;
+      background: linear-gradient(-45deg, #ffafbd, #ffc3a0, #ffdde1, #ee9ca7);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+      overflow: hidden;
+    }
+
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    /* Carta estilo pergamino */
+    .carta {
+      position: relative;
+      background: #fdf6e3;
+      padding: 40px 30px;
+      width: 90%;
+      max-width: 600px;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      border: 2px solid #deb887;
+      color: #5a3e36;
+      text-align: center;
+      overflow: hidden;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .carta::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 8px solid rgba(139,69,19,0.3);
+      border-radius: 20px;
+      pointer-events: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.8);}
+      to { opacity: 1; transform: scale(1);}
+    }
+
+    /* Párrafos animados estilo máquina de escribir */
+    .parrafo {
+    
+      text-align: center;
+      margin: 15px 0;
+      white-space: pre-wrap;
+      border-right: 2px solid #5a3e36;
+      overflow: hidden;
+    }
+
+    /* Corazones flotando */
+    .corazon {
+      position: absolute;
+      color: #ff4d6d;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.8;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) rotate(0deg) scale(1); opacity: 1; }
+      100% { transform: translateY(-20vh) rotate(360deg) scale(1.5); opacity: 0; }
+    }
+
+
+    @keyframes fadeInMsg {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1);}
+    }
+
+    /* Responsive móvil */
+    @media (max-width: 480px) {
+      .carta {
+        padding: 25px 20px;
+      }
+      #mensajeFinal {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="carta" id="carta">
+    <h2>Para mi niña hermosa 💖</h2>
+  </div>
+
+
+  <!-- Corazones animados -->
+  <script>
+    // Corazones flotando
+    function crearCorazon() {
+      const corazon = document.createElement("div");
+      corazon.classList.add("corazon");
+      corazon.innerHTML = "❤️";
+      corazon.style.left = Math.random() * 100 + "vw";
+      corazon.style.fontSize = (Math.random() * 20 + 15) + "px";
+      corazon.style.animationDuration = (Math.random() * 5 + 5) + "s";
+      document.body.appendChild(corazon);
+      setTimeout(() => corazon.remove(), 7000);
+    }
+    setInterval(crearCorazon, 500);
+
+    // Texto de la carta en párrafos
+  const parrafos = [
+  "Mi niña,",
+  "Quiero que sepas que estoy orgulloso de ti, pero no solo porque seas fuerte. A veces siento que cuando te digo eso parece que no veo todo lo que llevas dentro, y no es así. Sé que tu fuerza no salió de la nada, que viene de mil batallas que nadie debería haber pasado. Sé que hay días en que la sonrisa cuesta, que hay recuerdos que pesan más de lo que la gente imagina.",
+  "Yo no te admiro porque “aguantes”, sino porque a pesar de todo sigues siendo tú: generosa, tierna, con esa forma tan tuya de dar cariño y hacer sentir que no estamos solos. Te admiro porque aunque la vida no te dio muchas opciones, aún así no dejaste de soñar, de luchar y de ser luz.",
+  "No tienes que demostrarme nada, ni ser “la fuerte” todo el tiempo. Para mí, ya eres suficiente, con tus altos y bajos, con tus días buenos y tus días grises. Estoy aquí, siempre, no solo para aplaudir tus logros, sino también para abrazarte en tus caídas y recordarte que no caminas sola.",
+  "Y aunque a veces la vida pese, quiero que nunca olvides que también hay alegría en tu camino: en tus risas, en tus locuras, en esos momentos donde brillan tus ojitos y contagias tu energía. Eso es lo que me hace feliz, ver que después de tanto, sigues encontrando motivos para sonreír.",
+  "Gracias por ser tú, por dejarme acompañarte, por enseñarme lo que significa resistir y aún así dar amor. Te quiero con todo lo que soy, y espero que cada paso que des esté lleno de esperanza y de cosas bonitas, porque tú te mereces todo lo bueno que la vida pueda dar."
+];
+
+    const carta = document.getElementById("carta");
+
+    function escribirParrafo(index) {
+   
+
+      const p = document.createElement("p");
+      p.classList.add("parrafo");
+      carta.appendChild(p);
+
+      let i = 0;
+      const texto = parrafos[index];
+      const interval = setInterval(() => {
+        p.textContent += texto.charAt(i);
+        i++;
+        if(i >= texto.length){
+          clearInterval(interval);
+          p.style.opacity = 1;
+          setTimeout(() => escribirParrafo(index + 1), 800); // tiempo entre párrafos
+        }
+      }, 50); // velocidad máquina de escribir
+    }
+
+    // Inicia la escritura al cargar
+    window.onload = () => escribirParrafo(0);
+
+  </script>
+</body>
+</html>
